@@ -10,8 +10,7 @@ steps:
   fetchDepth: 20
   persistCredentials: true
 - script: |
-    python3 -m pip install --upgrade pip
-    pip install semgrep
+    pipx install semgrep
     if [ $(Build.SourceBranchName) = "master" ]; then
         echo "Semgrep full scan"
         semgrep ci -j 1
