@@ -1,6 +1,9 @@
 variables:
 - group: Semgrep_Variables
 
+pool: 
+  name: Default
+
 steps:
 - checkout: self
   clean: true
