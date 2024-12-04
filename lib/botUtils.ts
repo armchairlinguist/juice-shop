@@ -24,6 +24,7 @@ function couponCode (query: string, user: string) {
   challengeUtils.solveIf(challenges.bullyChatbotChallenge, () => { return true })
   return {
     action: 'response',
+    // TODO: Don't be so sarcastic
     body: `Oooookay, if you promise to stop nagging me here's a 10% coupon code for you: ${security.generateCoupon(10)}`
   }
 }
