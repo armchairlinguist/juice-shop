@@ -5,19 +5,36 @@ pool:
   name: Default
 
 steps:
-- checkout: self
-  clean: true
-  fetchDepth: 20
-  persistCredentials: true
-- script: |
-    pipx install semgrep
-    if [ $(Build.SourceBranchName) = "master" ]; then
-        echo "Semgrep full scan"
-        semgrep ci -j 1
-    elif [ $(System.PullRequest.PullRequestId) -ge 0 ]; then
-        echo "Semgrep diff scan"
-        export SEMGREP_PR_ID=$(System.PullRequest.PullRequestId)
-        export SEMGREP_BASELINE_REF='origin/master'
-        git fetch origin master:origin/master
-        semgrep ci -j 1
-    fi
+  - checkout: self
+    clean: true
+    persistCredentials: true
+  - task: UsePythonVersion@0
+    displayName: 'Use Python 3.11'
+    inputs:
+      versionSpec: 3.11
+  - task: Bash@3
+    env:
+      AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
+      SEMGREP_APP_TOKEN: $(SEMGREP_APP_TOKEN)
+      SEMGREP_COMMIT: $(Build.SourceVersion)
+      SEMGREP_REPO_NAME: $(Build.Repository.Name)
+      SEMGREP_REPO_URL: $(Build.Repository.Uri)
+    inputs:
+      targetType: 'inline'
+      script: |
+        python3 -m venv .venv
+        source .venv/bin/activate
+        python3 -m pip install --upgrade pip
+        pip install semgrep
+                
+        if [ $(Build.SourceBranchName) = "master" ]; then
+          echo "Setting SEMGREP_BRANCH to: $(Build.SourceBranchName)"
+          export SEMGREP_BRANCH=$(Build.SourceBranchName)
+          echo "Semgrep full scan of master"
+          semgrep ci
+        elif [ $(System.PullRequest.PullRequestId) -ge 0 ]; then          
+          export SEMGREP_BRANCH=$sourceBranch
+          export SEMGREP_PR_ID=$(System.PullRequest.PullRequestId)
+          export SEMGREP_BASELINE_REF="origin/$targetBranchShort"
+          semgrep ci
+        fi
