@@ -13,5 +13,5 @@ on:
 name: Semgrep
 jobs:
   call-semgrep:
-    uses: armchairlinguist/semgrep-workflow/.github/workflows/semgrep.yml@main
+    uses: armchairlinguist/semgrep-workflow/.github/workflows/semgrep.yml
     secrets: inherit
