@@ -20,5 +20,5 @@ jobs:
     container:
       image: returntocorp/semgrep:latest
     steps:
-    - uses: actions/checkout@v4
-    - run: semgrep ci
+    - uses: actions/checkout@v3
+    - run: semgrep ci --supply-chain
