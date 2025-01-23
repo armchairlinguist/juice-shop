@@ -13,7 +13,7 @@ import { faFacebook, faReddit, faSlack, faTwitter } from '@fortawesome/free-bran
 import { faNewspaper, faStar } from '@fortawesome/free-regular-svg-icons'
 import { faStar as fasStar, faPalette } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faFacebook, faTwitter, faSlack, faReddit, faNewspaper, faStar, fasStar, faPalette)
+library.add(faTwitter, faSlack, faReddit, faNewspaper, faStar, fasStar, faPalette)
 dom.watch()
 
 @Component({
@@ -23,7 +23,6 @@ dom.watch()
   })
 export class AboutComponent implements OnInit {
   public twitterUrl?: string
-  public facebookUrl?: string
   public slackUrl?: string
   public redditUrl?: string
   public pressKitUrl?: string
