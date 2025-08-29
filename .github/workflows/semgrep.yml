@@ -21,4 +21,4 @@ jobs:
       image: returntocorp/semgrep:latest
     steps:
     - uses: actions/checkout@v4
-    - run: semgrep ci
+    - run: semgrep ci --debug
