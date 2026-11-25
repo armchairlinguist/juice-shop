@@ -1,4 +1,5 @@
 /*
+ * TODO: update copyright to 2025
  * Copyright (c) 2014-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
  * SPDX-License-Identifier: MIT
  */
@@ -20,6 +21,7 @@
  */
 
 /** *************************************************************************************************
+ * TODO: we hate ie, don't polyfill
  * BROWSER POLYFILLS
  */
 
